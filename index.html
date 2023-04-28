@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper__calc">
+      <div class="calculator__container">
+        <header class="header__calc">
+          <h1 class="heading__primary--calc">Calculate your loan repayments</h1>
+        </header>
+        <div class="grid3x3">
+          <div class="row__calc">
+            <label class="label__calc">Loan Amount</label>
+            <div class="combined__calc">
+              <input
+                type="text"
+                inputmode="numeric"
+                class="input__calc"
+                value="0"
+                oninput="changeSlider(this, 'amount'),formatCurrency(this)"
+              />
+            </div>
+            <input
+              type="range"
+              id="amount"
+              min="0"
+              step="1000"
+              max="100000"
+              value="0"
+              class="input_calc slider slider__attend"
+              oninput="calculate(this)"
+            />
+          </div>
+          <div class="row__calc">
+            <label class="label__calc">Loan Term</label>
+            <div class="combined__calc">
+              <input
+                type="text"
+                inputmode="numeric"
+                class="input__calc"
+                value="1"
+                oninput="changeSlider(this, 'term'),formatCurrency(this)"
+              />
+              <span class="unit__calc--right">Years</span>
+            </div>
+            <input
+              type="range"
+              id="term"
+              min="1"
+              step="1"
+              max="7"
+              value="0"
+              class="input_calc slider slider__attend"
+              oninput="calculate(this)"
+            />
+          </div>
+          <div class="row__calc">
+            <label class="label__calc">Interest p.a</label>
+            <div class="combined__calc">
+              <input
+                type="text"
+                inputmode="numeric"
+                value="0.1"
+                class="input__calc"
+                oninput="changeSlider(this, 'apr')"
+              />
+              <span class="unit__calc--right">%</span>
+            </div>
+            <input
+              type="range"
+              id="apr"
+              min="0.10"
+              step="0.1"
+              max="15"
+              value="0"
+              class="input_calc slider slider__attend"
+              oninput="calculate(this)"
+            />
+          </div>
+        </div>
+        <div class="grid3x3">
+          <div class="row__calc">
+            <label class="label__calc">Repayment Frequency </label>
+            <div class="combined__calc">
+              <select id="freq" class="input__calc" onchange="calculateResult()">
+                <option value="52-weekly">Weekly</option>
+                <option value="26-fortnightly">Fortnightly</option>
+                <option value="12-monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+          <div class="row__calc">
+            <label class="label__calc display__flex"
+              >Balloon Payment
+              <div class="form-group display__flex" style="margin-left: 5px; cursor: pointer">
+                <input type="checkbox" id="checkBox" onchange="toggleBalloon()" checked />
+                <label for="checkBox" style="font-size: 14px" style="margin-left: 5px"></label>
+              </div>
+            </label>
+            <div class="ballon__box">
+              <div class="combined__calc">
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  value="10"
+                  class="input__calc"
+                  oninput="changeSlider(this, 'balloon'),formatCurrency(this)"
+                />
+                <span class="unit__calc--right">%</span>
+              </div>
+              <input
+                type="range"
+                id="balloon"
+                min="10"
+                step="10"
+                max="50"
+                value="10"
+                class="input_calc slider slider__attend"
+                oninput="calculate(this)"
+              />
+            </div>
+          </div>
+          <div class="row__calc">&nbsp;</div>
+          <div class="row__calc">&nbsp;</div>
+        </div>
+        <div class="output__container--calc">
+          <div class="result__container">
+            <div class="result__row">
+              <label class="result__label">Estimated repayment</label>
+              <span class="result__value" id="res__value"
+                >$0<span class="small__text">/weekly</span>
+              </span>
+            </div>
+            <div class="result__row ballon__box">
+              <label class="result__label">Balloon payment</label>
+              <span class="result__value" id="ballonPay">$0</span>
+            </div>
+          </div>
+          <div class="cta__container">
+            <span class="label__result--cta">&nbsp;</span>
+            <div class="cta__btns">
+              <a
+                class="btn__apply"
+                style="background-color: #54cc2c"
+                href="https://applyonlineformv2.netlify.app/"
+                target="_blank"
+                >Apply Now</a
+              >
+              <a
+                class="btn__apply"
+                style="background-color: #333"
+                href="https://www.yesapproved.com.au/contact-1"
+                target="_blank"
+                >Confirm Quote</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="disclaimer__container">
+          <p class="para__calc">
+            Disclaimer: The calculator is provided only as a general self-help planning tool.
+            Results depend on many factors, including the assumptions you provide. We do not
+            guarantee their accuracy, or applicability to your circumstances.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
